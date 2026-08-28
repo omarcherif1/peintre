@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Cours;
 use App\Models\Foire;
+use App\Models\PresseArticle;
+use App\Models\PresseInterview;
 use App\Models\Tableau;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
@@ -119,7 +121,35 @@ class PageController extends Controller
 
     public function presse(): Response
     {
-        return Inertia::render('Presse');
+        $articles = PresseArticle::where('publie', true)
+            ->orderBy('ordre')
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(fn ($a) => [
+                'id'               => $a->id,
+                'media'            => $a->media,
+                'date_publication' => $a->date_publication,
+                'titre'            => $a->titre,
+                'extrait'          => $a->extrait,
+                'lien'             => $a->lien,
+            ]);
+
+        $interviews = PresseInterview::where('publie', true)
+            ->orderBy('ordre')
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(fn ($i) => [
+                'id'               => $i->id,
+                'type'             => $i->type,
+                'media'            => $i->media,
+                'date_publication' => $i->date_publication,
+                'titre'            => $i->titre,
+                'description'      => $i->description,
+                'url'              => $i->url,
+                'image_url'        => $i->image_url,
+            ]);
+
+        return Inertia::render('Presse', compact('articles', 'interviews'));
     }
 
     public function ateliers(): Response

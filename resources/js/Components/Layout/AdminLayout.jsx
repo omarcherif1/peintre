@@ -6,6 +6,7 @@ const navLinks = [
     { href: '/admin/foires',    label: 'Foires' },
     { href: '/admin/cours',     label: 'Cours' },
     { href: '/admin/articles',  label: 'Articles / Blog' },
+    { href: '/admin/presse',    label: 'Presse' },
 ];
 
 export default function AdminLayout({ children }) {

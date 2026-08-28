@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\PresseController as AdminPresseController;
 use App\Http\Controllers\Admin\TableauController as AdminTableauController;
 use App\Http\Controllers\Admin\FoireController as AdminFoireController;
 use App\Http\Controllers\Admin\CoursController as AdminCoursController;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/image/tableau/{image}', [ImageController::class, 'tableau'])->name('image.tableau');
 Route::get('/image/foire/{image}', [ImageController::class, 'foire'])->name('image.foire');
 Route::get('/image/article/{article}', [ImageController::class, 'article'])->name('image.article');
+Route::get('/image/interview/{presseInterview}', [ImageController::class, 'interview'])->name('image.interview');
 
 // Routes publiques
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');
@@ -50,6 +52,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     Route::resource('cours', AdminCoursController::class)->parameters(['cours' => 'cour']);
     Route::resource('articles', AdminArticleController::class);
+
+    // Presse
+    Route::get('presse', [AdminPresseController::class, 'index'])->name('presse.index');
+    Route::post('presse/articles', [AdminPresseController::class, 'storeArticle'])->name('presse.articles.store');
+    Route::put('presse/articles/{presseArticle}', [AdminPresseController::class, 'updateArticle'])->name('presse.articles.update');
+    Route::delete('presse/articles/{presseArticle}', [AdminPresseController::class, 'destroyArticle'])->name('presse.articles.destroy');
+    Route::post('presse/interviews', [AdminPresseController::class, 'storeInterview'])->name('presse.interviews.store');
+    Route::put('presse/interviews/{presseInterview}', [AdminPresseController::class, 'updateInterview'])->name('presse.interviews.update');
+    Route::delete('presse/interviews/{presseInterview}', [AdminPresseController::class, 'destroyInterview'])->name('presse.interviews.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Blog({ articles = [] }) {
     const gridRef = useRef(null);
@@ -8,13 +9,9 @@ export default function Blog({ articles = [] }) {
     useEffect(() => {
         const cards = gridRef.current?.querySelectorAll('.reveal-card');
         if (!cards?.length) return;
-
         const observer = new IntersectionObserver(
             (entries) => entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('active');
-                    observer.unobserve(e.target);
-                }
+                if (e.isIntersecting) { e.target.classList.add('active'); observer.unobserve(e.target); }
             }),
             { threshold: 0.12 }
         );
@@ -25,29 +22,10 @@ export default function Blog({ articles = [] }) {
     return (
         <PublicLayout>
             <main className="min-h-screen pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <BlogHeader />
 
-                {/* ── En-tête ── */}
-                <header className="text-center mb-16">
-                    <p className="font-label-technical text-label-technical text-primary uppercase tracking-widest mb-3">
-                        Chroniques
-                    </p>
-                    <h1 className="font-headline-lg text-4xl md:text-5xl text-primary mb-4">
-                        Chroniques de l'Atelier
-                    </h1>
-                    <div className="w-12 h-px bg-primary mx-auto mb-5" />
-                    <p className="font-body-lg text-body-lg text-on-surface/60 max-w-xl mx-auto">
-                        Réflexions, processus et regards sur la création picturale.
-                    </p>
-                </header>
-
-                {/* ── Grille articles ── */}
                 {articles.length === 0 ? (
-                    <div className="text-center py-20">
-                        <span className="material-symbols-outlined text-primary/30 text-5xl block mb-4">edit_note</span>
-                        <p className="font-label-technical text-label-technical text-on-surface/30 uppercase tracking-widest">
-                            Aucune chronique publiée pour l'instant.
-                        </p>
-                    </div>
+                    <EmptyState />
                 ) : (
                     <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                         {articles.map((article, i) => (
@@ -56,38 +34,74 @@ export default function Blog({ articles = [] }) {
                     </div>
                 )}
 
-                {/* ── Newsletter statique ── */}
-                <section className="border-t border-primary/20 pt-16 mt-8">
-                    <div className="max-w-xl mx-auto text-center">
-                        <p className="font-label-technical text-label-technical text-primary uppercase tracking-widest mb-3">
-                            Restez informé
-                        </p>
-                        <h2 className="font-headline-md text-2xl text-primary mb-4">
-                            Suivre l'atelier
-                        </h2>
-                        <p className="font-body-md text-on-surface/50 mb-8">
-                            Retrouvez les nouvelles créations et les prochaines expositions sur nos réseaux sociaux.
-                        </p>
-                        <Link
-                            href="/contact"
-                            className="inline-block btn-primary px-8 py-3 font-label-technical text-label-technical uppercase tracking-widest transition-all duration-300"
-                        >
-                            Nous contacter
-                        </Link>
-                    </div>
-                </section>
+                {/* <BlogNewsletter /> */}
             </main>
         </PublicLayout>
     );
 }
 
+function BlogHeader() {
+    const { t } = useLanguage();
+    return (
+        <header className="text-center mb-16">
+            <p className="font-label-technical text-label-technical text-primary uppercase tracking-widest mb-3">
+                {t('blog','heroTag')}
+            </p>
+            <h1 className="font-headline-lg text-4xl md:text-5xl text-primary mb-4">
+                {t('blog','heroTitle')}
+            </h1>
+            <div className="w-12 h-px bg-primary mx-auto mb-5" />
+            <p className="font-body-lg text-body-lg text-on-surface/60 max-w-xl mx-auto">
+                {t('blog','heroDesc')}
+            </p>
+        </header>
+    );
+}
+
+function EmptyState() {
+    const { t } = useLanguage();
+    return (
+        <div className="text-center py-20">
+            <span className="material-symbols-outlined text-primary/30 text-5xl block mb-4">edit_note</span>
+            <p className="font-label-technical text-label-technical text-on-surface/30 uppercase tracking-widest">
+                {t('blog','empty')}
+            </p>
+        </div>
+    );
+}
+
+function BlogNewsletter() {
+    const { t } = useLanguage();
+    return (
+        <section className="border-t border-primary/20 pt-16 mt-8">
+            <div className="max-w-xl mx-auto text-center">
+                <p className="font-label-technical text-label-technical text-primary uppercase tracking-widest mb-3">
+                    {t('blog','nlTag')}
+                </p>
+                <h2 className="font-headline-md text-2xl text-primary mb-4">
+                    {t('blog','nlTitle')}
+                </h2>
+                <p className="font-body-md text-on-surface/50 mb-8">
+                    {t('blog','nlDesc')}
+                </p>
+                <Link
+                    href="/contact"
+                    className="inline-block btn-primary px-8 py-3 font-label-technical text-label-technical uppercase tracking-widest transition-all duration-300"
+                >
+                    {t('blog','nlCta')}
+                </Link>
+            </div>
+        </section>
+    );
+}
+
 function ArticleCard({ article, delay }) {
+    const { t } = useLanguage();
     return (
         <article
             className="reveal-card gallery-frame flex flex-col overflow-hidden"
             style={{ transitionDelay: `${delay}ms` }}
         >
-            {/* Image ou placeholder */}
             <div className="relative overflow-hidden" style={{ height: 220 }}>
                 {article.image_url ? (
                     <img
@@ -102,7 +116,6 @@ function ArticleCard({ article, delay }) {
                 )}
             </div>
 
-            {/* Corps */}
             <div className="flex flex-col flex-1 p-6" style={{ background: '#1c1916' }}>
                 <p className="font-label-technical text-label-technical text-primary/60 uppercase tracking-widest mb-2">
                     {article.date}
@@ -117,7 +130,7 @@ function ArticleCard({ article, delay }) {
                     href={route('blog.article', article.id)}
                     className="btn-primary self-start px-5 py-2 font-label-technical text-label-technical uppercase tracking-widest text-xs transition-all duration-300"
                 >
-                    Lire la chronique →
+                    {t('blog','lire le blog')}
                 </Link>
             </div>
         </article>

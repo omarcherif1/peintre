@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 
+@font-face {
+    font-family: 'Pixeled';
+    src: url('../fonts/Pixeled.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -60,31 +68,37 @@
 
 /* ── Galerie Œuvres ── */
 .masonry-grid {
-    columns: 1;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 }
-@media (min-width: 768px) {
-    .masonry-grid { columns: 2; }
+@media (min-width: 640px) {
+    .masonry-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1024px) {
-    .masonry-grid { columns: 3; }
+    .masonry-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .artwork-card {
-    break-inside: avoid;
-    margin-bottom: 2rem;
     position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.artwork-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 .artwork-card:hover {
     box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-    transform: translateY(-8px);
+    transform: translateY(-6px);
 }
 .gold-border {
-    border: 0.5px solid rgba(212, 175, 55, 0.4);
+    outline: 1px solid rgba(212, 175, 55, 0.35);
 }
 .copper-frame {
-    border: 12px solid #211f1d;
-    outline: 0.5px solid #d4af37;
+    outline: 1px solid rgba(212, 175, 55, 0.5);
 }
 .reveal-overlay {
     background: linear-gradient(to top, rgba(10, 7, 6, 0.92) 0%, transparent 60%);

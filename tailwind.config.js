@@ -1,4 +1,4 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
+﻿import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
@@ -57,6 +57,7 @@ export default {
                 'label-technical': ['"DM Mono"', ...defaultTheme.fontFamily.mono],
                 'headline-md':     ['"Playfair Display"', ...defaultTheme.fontFamily.serif],
                 'body-md':         ['Lato', ...defaultTheme.fontFamily.sans],
+                'zarbville':       ['"Zarbville NBP"', ...defaultTheme.fontFamily.serif],
             },
 
             fontSize: {
