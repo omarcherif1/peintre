@@ -114,7 +114,7 @@ export default function Contact() {
                                 width="100%"
                                 height="100%"
                                 className="w-full h-full min-h-[260px] block"
-                                style={{ border: 0, filter: 'grayscale(1) brightness(0.6) sepia(0.2)' }}
+                                style={{ border: 0 }}
                                 allowFullScreen=""
                                 loading="lazy"
                                 referrerPolicy="strict-origin-when-cross-origin"
