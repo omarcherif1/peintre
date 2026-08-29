@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="7uun-FKks2UC-6SqJVleX0CyUFF7Jc3xv-zz3CYha1k" />
 
         <title inertia>{{ config('app.name', 'Chokri Benomrane') }}</title>
 
