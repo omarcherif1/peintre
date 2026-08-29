@@ -120,7 +120,7 @@ export default function Accueil({ tableaux = [] }) {
                             </h1>
                         </div>
                         <div id="hero-abidi" className="overflow-visible clip-reveal pb-4">
-                            <h1 className="font-display-lg text-6xl sm:text-8xl lg:text-[7.5rem] text-primary leading-none text-glow-gold select-none">
+                            <h1 className="font-display-lg text-6xl sm:text-8xl lg:text-[7.5rem] text-primary leading-none text-glow-gold select-none" style={{ fontFeatureSettings: "'swsh' 0, 'cswh' 0, 'ss01' 0", fontVariant: 'normal' }}>
                                 BENOMRANE
                             </h1>
                         </div>
