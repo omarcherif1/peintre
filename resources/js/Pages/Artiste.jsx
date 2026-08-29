@@ -103,9 +103,7 @@ export default function Artiste({ images = [] }) {
                                     className="w-full h-full object-cover object-center"
                                 />
                             </div>
-                            <div className="mt-5 flex justify-end pr-2">
-                                <SignatureSVG />
-                            </div>
+                           
                         </div>
 
                         {/* ── Texte ── */}
@@ -247,8 +245,6 @@ function SignatureSVG() {
         <svg width="180" height="48" viewBox="0 0 180 48" fill="none" className="opacity-65">
             <path d="M10 30 C16 18 26 8 38 14 C50 20 46 34 36 38 C26 42 20 28 32 22 C44 16 58 22 66 30" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" fill="none" />
             <path d="M78 24 C86 16 96 12 106 18 C114 24 110 36 102 38 C94 40 90 26 100 22 C112 16 126 24 134 32 C140 36 144 38 154 32 C162 26 168 20 176 26" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-            <path d="M10 43 L176 43" stroke="#D4AF37" strokeWidth="0.6" strokeDasharray="3 4" strokeLinecap="round" />
-            <circle cx="178" cy="43" r="1.5" fill="#D4AF37" />
         </svg>
     );
 }
