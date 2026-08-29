@@ -27,18 +27,18 @@ export default function AdminLayout({ children }) {
     const sidebarContent = (
         <>
             {/* En-tête logo */}
-            <div style={{ padding: '1.75rem 1.5rem 1.25rem', borderBottom: '1px solid #2a2520' }}>
-                <p style={{ fontFamily: '"DM Mono", monospace', fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.5rem' }}>
+            <div style={{ padding: '1.25rem 1.5rem 1rem', borderBottom: '1px solid #2a2520', flexShrink: 0 }}>
+                <p style={{ fontFamily: '"DM Mono", monospace', fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.4rem' }}>
                     Espace artiste
                 </p>
                 <p style={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: '1.1rem', fontWeight: 400, color: '#F4EFEA', letterSpacing: '0.01em', lineHeight: 1.3 }}>
                     Chokri Benomrane
                 </p>
-                <div style={{ width: 32, height: 1, background: '#D4AF37', marginTop: '0.75rem' }} />
+                <div style={{ width: 32, height: 1, background: '#D4AF37', marginTop: '0.6rem' }} />
             </div>
 
-            {/* Navigation */}
-            <nav style={{ flex: 1, paddingTop: '0.75rem' }}>
+            {/* Navigation — scrollable si necessaire */}
+            <nav style={{ flex: 1, paddingTop: '0.5rem', overflowY: 'auto' }}>
                 <p style={{ fontFamily: '"DM Mono", monospace', fontSize: '0.6rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#F4EFEA', opacity: 0.25, padding: '0.5rem 1.5rem' }}>
                     Navigation
                 </p>
@@ -70,7 +70,7 @@ export default function AdminLayout({ children }) {
             </nav>
 
             {/* Pied de sidebar */}
-            <div style={{ borderTop: '1px solid #2a2520', padding: '0.5rem 0' }}>
+            <div style={{ borderTop: '1px solid #2a2520', padding: '0.5rem 0', flexShrink: 0 }}>
                 <a
                     href="/"
                     target="_blank"
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }) {
                     zIndex: 50,
                     transform: open ? 'translateX(0)' : 'translateX(-100%)',
                     transition: 'transform 0.25s ease',
-                    overflowY: 'auto',
+                    overflowY: 'hidden',
                 }}
             >
                 {sidebarContent}

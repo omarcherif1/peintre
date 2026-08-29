@@ -46,8 +46,8 @@ export default function Index({ tableaux }) {
                 <button onClick={() => setModal('create')} style={btnGold}>+ Ajouter un tableau</button>
             </div>
 
-            <div style={{ border: `1px solid ${C.border}`, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div style={{ border: `1px solid ${C.border}`, overflowX: 'auto' }}>
+                <table style={{ width: '100%', minWidth: 700, borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ background: C.bgDeep, borderBottom: `1px solid ${C.border}` }}>
                             {['Image', 'Nom', 'Catégorie', 'Technique', 'Dimensions', 'Disponible', 'Ordre', 'Actions'].map(h => (

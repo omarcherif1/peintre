@@ -56,13 +56,13 @@ export default function Index({ cours }) {
                 <button onClick={() => setModal('create')} style={btnGold}>+ Ajouter un cours</button>
             </div>
 
-            <div style={{ border: `1px solid ${C.border}`, overflow: 'hidden' }}>
+            <div style={{ border: `1px solid ${C.border}`, overflowX: 'auto' }}>
                 {cours.length === 0 ? (
                     <p style={{ padding: '3rem', textAlign: 'center', color: C.muted, fontFamily: '"DM Mono", monospace', fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                         Aucun cours enregistré.
                     </p>
                 ) : (
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table style={{ width: '100%', minWidth: 650, borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ background: C.bgDeep, borderBottom: `1px solid ${C.border}` }}>
                                 {['Ord.', 'Titre', 'Niveau', 'Jour', 'Horaires', 'Emplacement', 'Places', 'Tarif', 'Actif', 'Actions'].map(h => (

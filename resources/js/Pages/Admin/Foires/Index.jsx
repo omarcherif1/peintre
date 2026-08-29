@@ -49,8 +49,8 @@ export default function Index({ foires }) {
                 <button onClick={() => setModal('create')} style={btnGold}>+ Ajouter une foire</button>
             </div>
 
-            <div style={{ border: `1px solid ${C.border}`, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div style={{ border: `1px solid ${C.border}`, overflowX: 'auto' }}>
+                <table style={{ width: '100%', minWidth: 650, borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ background: C.bgDeep, borderBottom: `1px solid ${C.border}` }}>
                             {['Image', 'Nom', 'Emplacement', 'Date début', 'Date fin', 'Statut', 'Ordre', 'Actions'].map(h => (
