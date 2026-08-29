@@ -47,9 +47,7 @@ class PageController extends Controller
                 'id'        => $t->id,
                 'nom'       => $t->nom,
                 'technique' => $t->technique,
-                'image_url' => $t->images->first()
-                                ? '/image/tableau/' . $t->images->first()->id
-                                : null,
+                'image_url' => $t->images->first()?->url,
             ])
             ->filter(fn ($t) => $t['image_url'] !== null)
             ->values();
@@ -69,12 +67,10 @@ class PageController extends Controller
             'annee'         => $t->created_at->format('Y'),
             'description'   => $t->description,
             'idee'          => $t->idee,
-            'image_url'     => $t->images->first()
-                                ? '/image/tableau/' . $t->images->first()->id
-                                : null,
+            'image_url'     => $t->images->first()?->url,
             'toutes_images' => $t->images->map(fn ($img) => [
                 'id'  => $img->id,
-                'url' => '/image/tableau/' . $img->id,
+                'url' => $img->url,
             ]),
         ];
 
@@ -102,9 +98,7 @@ class PageController extends Controller
             'date_debut'  => $f->date_debut?->format('Y-m-d'),
             'date_fin'    => $f->date_fin?->format('Y-m-d'),
             'description' => $f->description,
-            'image_url'   => $f->images->first()
-                                ? '/image/foire/' . $f->images->first()->id
-                                : null,
+            'image_url'   => $f->images->first()?->url,
         ];
 
         $foireAVenir = Foire::where('est_a_venir', true)->with('images')->first();

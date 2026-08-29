@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class TableauImage extends Model
 {
     protected $fillable = [
         'tableau_id',
-        'image_data',
-        'mime_type',
+        'image_path',
         'nom_original',
         'est_principale',
         'ordre',
@@ -22,9 +22,6 @@ class TableauImage extends Model
 
     protected $appends = ['url'];
 
-    // Exclure image_data des sérialisations JSON pour éviter de charger les binaires inutilement
-    protected $hidden = ['image_data'];
-
     public function tableau(): BelongsTo
     {
         return $this->belongsTo(Tableau::class);
@@ -32,6 +29,6 @@ class TableauImage extends Model
 
     public function getUrlAttribute(): string
     {
-        return route('image.tableau', $this->id);
+        return Storage::disk('public')->url($this->image_path);
     }
 }

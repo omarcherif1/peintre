@@ -9,11 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tableau_images', function (Blueprint $table) {
-            $table->text('image_data')->change();
+            $table->longText('image_data')->change();
         });
 
         Schema::table('foire_images', function (Blueprint $table) {
-            $table->text('image_data')->change();
+            $table->longText('image_data')->change();
         });
     }
 

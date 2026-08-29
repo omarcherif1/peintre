@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->longText('contenu');
-            $table->text('image_data')->nullable();
+            $table->longText('image_data')->nullable();
             $table->string('image_mime')->nullable();
             $table->boolean('publie')->default(false);
             $table->integer('ordre')->default(0);

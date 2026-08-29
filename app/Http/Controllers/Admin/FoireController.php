@@ -8,6 +8,7 @@ use App\Models\FoireImage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -58,10 +59,10 @@ class FoireController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('images/foires', 'public');
                 FoireImage::create([
                     'foire_id'     => $foire->id,
-                    'image_data'   => base64_encode($file->get()),
-                    'mime_type'    => $file->getMimeType(),
+                    'image_path'   => $path,
                     'nom_original' => $file->getClientOriginalName(),
                     'ordre'        => $index,
                 ]);
@@ -119,10 +120,10 @@ class FoireController extends Controller
         if ($request->hasFile('images')) {
             $offset = $foire->images()->count();
             foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('images/foires', 'public');
                 FoireImage::create([
                     'foire_id'     => $foire->id,
-                    'image_data'   => base64_encode($file->get()),
-                    'mime_type'    => $file->getMimeType(),
+                    'image_path'   => $path,
                     'nom_original' => $file->getClientOriginalName(),
                     'ordre'        => $offset + $index,
                 ]);
@@ -135,6 +136,9 @@ class FoireController extends Controller
 
     public function destroy(Foire $foire): RedirectResponse
     {
+        foreach ($foire->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+        }
         $foire->delete();
 
         return redirect()->route('admin.foires.index')
@@ -148,12 +152,12 @@ class FoireController extends Controller
         ]);
 
         $file  = $request->file('image');
+        $path  = $file->store('images/foires', 'public');
         $ordre = $foire->images()->count();
 
         $image = FoireImage::create([
             'foire_id'     => $foire->id,
-            'image_data'   => base64_encode($file->get()),
-            'mime_type'    => $file->getMimeType(),
+            'image_path'   => $path,
             'nom_original' => $file->getClientOriginalName(),
             'ordre'        => $ordre,
         ]);
@@ -162,7 +166,7 @@ class FoireController extends Controller
             'success' => true,
             'image'   => [
                 'id'    => $image->id,
-                'url'   => route('image.foire', $image->id),
+                'url'   => $image->url,
                 'ordre' => $image->ordre,
             ],
         ]);
@@ -172,6 +176,7 @@ class FoireController extends Controller
     {
         abort_if($image->foire_id !== $foire->id, 403);
 
+        Storage::disk('public')->delete($image->image_path);
         $image->delete();
 
         return response()->json(['success' => true]);

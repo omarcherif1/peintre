@@ -4,21 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class FoireImage extends Model
 {
     protected $fillable = [
         'foire_id',
-        'image_data',
-        'mime_type',
+        'image_path',
         'nom_original',
         'ordre',
     ];
 
     protected $appends = ['url'];
-
-    // Exclure image_data des sérialisations JSON pour éviter de charger les binaires inutilement
-    protected $hidden = ['image_data'];
 
     public function foire(): BelongsTo
     {
@@ -27,6 +24,6 @@ class FoireImage extends Model
 
     public function getUrlAttribute(): string
     {
-        return route('image.foire', $this->id);
+        return Storage::disk('public')->url($this->image_path);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\PresseArticle;
 use App\Models\PresseInterview;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -109,9 +110,7 @@ class PresseController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $interview->image_data = base64_encode($file->get());
-            $interview->image_mime = $file->getMimeType();
+            $interview->image_path = $request->file('image')->store('images/presse', 'public');
         }
 
         $interview->save();
@@ -142,13 +141,14 @@ class PresseController extends Controller
         $presseInterview->ordre            = $request->integer('ordre', 0);
         $presseInterview->publie           = $request->boolean('publie');
 
-        if ($request->boolean('supprimer_image')) {
-            $presseInterview->image_data = null;
-            $presseInterview->image_mime = null;
+        if ($request->boolean('supprimer_image') && $presseInterview->image_path) {
+            Storage::disk('public')->delete($presseInterview->image_path);
+            $presseInterview->image_path = null;
         } elseif ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $presseInterview->image_data = base64_encode($file->get());
-            $presseInterview->image_mime = $file->getMimeType();
+            if ($presseInterview->image_path) {
+                Storage::disk('public')->delete($presseInterview->image_path);
+            }
+            $presseInterview->image_path = $request->file('image')->store('images/presse', 'public');
         }
 
         $presseInterview->save();
@@ -157,6 +157,9 @@ class PresseController extends Controller
 
     public function destroyInterview(PresseInterview $presseInterview): RedirectResponse
     {
+        if ($presseInterview->image_path) {
+            Storage::disk('public')->delete($presseInterview->image_path);
+        }
         $presseInterview->delete();
         return back()->with('success', 'Interview supprimée.');
     }

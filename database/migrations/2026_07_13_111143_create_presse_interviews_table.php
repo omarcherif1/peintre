@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('titre');
             $table->text('description')->nullable();
             $table->string('url', 500)->nullable();
-            $table->text('image_data')->nullable();
+            $table->longText('image_data')->nullable();
             $table->string('image_mime')->nullable();
             $table->integer('ordre')->default(0);
             $table->boolean('publie')->default(true);

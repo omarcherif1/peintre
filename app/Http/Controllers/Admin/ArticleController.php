@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -52,9 +53,7 @@ class ArticleController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $article->image_data = base64_encode($file->get());
-            $article->image_mime = $file->getMimeType();
+            $article->image_path = $request->file('image')->store('images/articles', 'public');
         }
 
         $article->save();
@@ -93,13 +92,14 @@ class ArticleController extends Controller
         $article->publie  = $request->boolean('publie');
         $article->ordre   = $data['ordre'] ?? 0;
 
-        if ($request->boolean('supprimer_image')) {
-            $article->image_data = null;
-            $article->image_mime = null;
+        if ($request->boolean('supprimer_image') && $article->image_path) {
+            Storage::disk('public')->delete($article->image_path);
+            $article->image_path = null;
         } elseif ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $article->image_data = base64_encode($file->get());
-            $article->image_mime = $file->getMimeType();
+            if ($article->image_path) {
+                Storage::disk('public')->delete($article->image_path);
+            }
+            $article->image_path = $request->file('image')->store('images/articles', 'public');
         }
 
         $article->save();
@@ -110,6 +110,9 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
+        if ($article->image_path) {
+            Storage::disk('public')->delete($article->image_path);
+        }
         $article->delete();
 
         return redirect()->route('admin.articles.index')

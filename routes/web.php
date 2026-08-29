@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\PresseController as AdminPresseController;
 use App\Http\Controllers\Admin\TableauController as AdminTableauController;
@@ -11,12 +10,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-// Routes de service des images stockées en base
-Route::get('/image/tableau/{image}', [ImageController::class, 'tableau'])->name('image.tableau');
-Route::get('/image/foire/{image}', [ImageController::class, 'foire'])->name('image.foire');
-Route::get('/image/article/{article}', [ImageController::class, 'article'])->name('image.article');
-Route::get('/image/interview/{presseInterview}', [ImageController::class, 'interview'])->name('image.interview');
 
 // Routes publiques
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');

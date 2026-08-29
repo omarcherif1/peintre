@@ -309,22 +309,7 @@ export default function Accueil({ tableaux = [] }) {
             {/* ════════════════════════════════════════
                 SECTION 3 · Chiffres clés
             ════════════════════════════════════════ */}
-            <section className="bg-surface-container py-section-gap px-margin-mobile md:px-margin-desktop border-y border-primary/10">
-                <div className="max-w-container-max mx-auto">
-                    <div className="grid grid-cols-3 gap-8 md:gap-16 max-w-2xl mx-auto text-center reveal-up">
-                        {STATS_KEYS.map((key, i) => (
-                            <div key={key}>
-                                <div className="font-display-lg text-5xl md:text-7xl font-bold text-primary text-glow-gold leading-none">
-                                    {STAT_VALUES[i]}
-                                </div>
-                                <div className="font-label-technical text-label-technical text-on-surface/40 uppercase tracking-widest mt-3">
-                                    {t('accueil', key)}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            
 
 
             {/* ════════════════════════════════════════

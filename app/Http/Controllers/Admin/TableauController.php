@@ -8,6 +8,7 @@ use App\Models\TableauImage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -51,10 +52,10 @@ class TableauController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('images/tableaux', 'public');
                 TableauImage::create([
                     'tableau_id'     => $tableau->id,
-                    'image_data'     => base64_encode($file->get()),
-                    'mime_type'      => $file->getMimeType(),
+                    'image_path'     => $path,
                     'nom_original'   => $file->getClientOriginalName(),
                     'est_principale' => $index === 0,
                     'ordre'          => $index,
@@ -98,14 +99,14 @@ class TableauController extends Controller
         $tableau->update($validated);
 
         if ($request->hasFile('images')) {
-            $offset       = $tableau->images()->count();
+            $offset          = $tableau->images()->count();
             $pasEncoreImages = ! $tableau->images()->exists();
 
             foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('images/tableaux', 'public');
                 TableauImage::create([
                     'tableau_id'     => $tableau->id,
-                    'image_data'     => base64_encode($file->get()),
-                    'mime_type'      => $file->getMimeType(),
+                    'image_path'     => $path,
                     'nom_original'   => $file->getClientOriginalName(),
                     'est_principale' => $pasEncoreImages && $index === 0,
                     'ordre'          => $offset + $index,
@@ -119,6 +120,9 @@ class TableauController extends Controller
 
     public function destroy(Tableau $tableau): RedirectResponse
     {
+        foreach ($tableau->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+        }
         $tableau->delete();
 
         return redirect()->route('admin.tableaux.index')
@@ -131,13 +135,13 @@ class TableauController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        $file        = $request->file('image');
-        $isPremiere  = ! $tableau->images()->exists();
+        $file       = $request->file('image');
+        $isPremiere = ! $tableau->images()->exists();
+        $path       = $file->store('images/tableaux', 'public');
 
         $image = TableauImage::create([
             'tableau_id'     => $tableau->id,
-            'image_data'     => base64_encode($file->get()),
-            'mime_type'      => $file->getMimeType(),
+            'image_path'     => $path,
             'nom_original'   => $file->getClientOriginalName(),
             'est_principale' => $isPremiere,
             'ordre'          => $tableau->images()->count(),
@@ -147,7 +151,7 @@ class TableauController extends Controller
             'success' => true,
             'image'   => [
                 'id'             => $image->id,
-                'url'            => route('image.tableau', $image->id),
+                'url'            => $image->url,
                 'est_principale' => $image->est_principale,
                 'nom_original'   => $image->nom_original,
             ],
@@ -157,6 +161,8 @@ class TableauController extends Controller
     public function deleteImage(Tableau $tableau, TableauImage $image): JsonResponse
     {
         abort_if($image->tableau_id !== $tableau->id, 403);
+
+        Storage::disk('public')->delete($image->image_path);
 
         $etaitPrincipale = $image->est_principale;
         $image->delete();
