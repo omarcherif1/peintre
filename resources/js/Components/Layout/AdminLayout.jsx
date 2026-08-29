@@ -97,7 +97,7 @@ export default function AdminLayout({ children }) {
                 width: 260, minWidth: 260,
                 background: '#0A0706',
                 borderRight: '1px solid #2a2520',
-                display: 'flex', flexDirection: 'column',
+                flexDirection: 'column',
                 position: 'sticky', top: 0, height: '100vh', overflowY: 'auto',
             }}
                 className="hidden md:flex"
