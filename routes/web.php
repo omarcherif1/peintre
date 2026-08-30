@@ -11,6 +11,13 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Servir les fichiers storage via PHP (contournement symlink OVH)
+Route::get('/storage/{path}', function (string $path) {
+    $fullPath = storage_path('app/public/' . $path);
+    abort_if(!file_exists($fullPath), 404);
+    return response()->file($fullPath);
+})->where('path', '.*');
+
 // Routes publiques
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');
 Route::get('/artiste', [PageController::class, 'artiste'])->name('artiste');
