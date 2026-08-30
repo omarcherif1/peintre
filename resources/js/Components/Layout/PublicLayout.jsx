@@ -132,7 +132,7 @@ function Layout({ children }) {
 
                         <div className="mt-auto">
                             <p className="font-label-technical text-label-technical text-on-surface/30 uppercase tracking-widest">
-                                {lang === 'fr' ? 'Peintre tunisien' : 'Tunisian painter'}
+                                {t('footer', 'painter')}
                             </p>
                         </div>
                     </div>

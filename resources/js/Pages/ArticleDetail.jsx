@@ -1,7 +1,9 @@
 import { Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ArticleDetail({ article }) {
+    const { t } = useLanguage();
     return (
         <PublicLayout>
             <main className="min-h-screen pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop">
@@ -12,7 +14,7 @@ export default function ArticleDetail({ article }) {
                         href={route('blog')}
                         className="font-label-technical text-label-technical text-on-surface/40 uppercase tracking-widest hover:text-primary transition-colors inline-block mb-10"
                     >
-                        ← Chroniques
+                        {t('blog', 'retourChroniques')}
                     </Link>
 
                     {/* ── En-tête ── */}
@@ -52,7 +54,7 @@ export default function ArticleDetail({ article }) {
                             href={route('blog')}
                             className="font-label-technical text-label-technical text-on-surface/40 uppercase tracking-widest hover:text-primary transition-colors"
                         >
-                            ← Retour aux chroniques
+                            {t('blog', 'retourToutesChroniques')}
                         </Link>
                         <p className="font-headline-md text-primary italic text-lg">
                             Chokri Benomrane

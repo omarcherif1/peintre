@@ -130,7 +130,7 @@ function ArticleCard({ article, delay }) {
                     href={route('blog.article', article.id)}
                     className="btn-primary self-start px-5 py-2 font-label-technical text-label-technical uppercase tracking-widest text-xs transition-all duration-300"
                 >
-                    {t('blog','lire le blog')}
+                    {t('blog','lire')}
                 </Link>
             </div>
         </article>

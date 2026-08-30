@@ -255,7 +255,7 @@ function CoursCard({ cours, index }) {
             <div className="flex-shrink-0 flex flex-col items-center justify-center gap-5 p-8 border-t lg:border-t-0 lg:border-l border-white/5 min-w-[180px]">
                 <div className="text-center">
                     <p className="font-label-technical text-[10px] text-on-surface/30 uppercase tracking-widest mb-1">
-                        Tarif
+                        {t('ateliers', 'tarif')}
                     </p>
                     <p className="font-display-lg text-3xl text-primary leading-none">
                         {cours.tarif ? `${cours.tarif}` : '—'}

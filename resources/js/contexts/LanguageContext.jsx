@@ -87,6 +87,7 @@ const T = {
             nivInter:     'Intermédiaire',
             nivAvance:    'Avancé',
             nivTous:      'Tous niveaux',
+            tarif:        'Tarif',
         },
         expositions: {
             prochain:       'Prochain',
@@ -183,7 +184,9 @@ const T = {
             nlTitle:       "Suivre l'atelier",
             nlDesc:        'Retrouvez les nouvelles créations et les prochaines expositions sur nos réseaux sociaux.',
             nlCta:         'Nous contacter',
-            lireChronique: 'Lire la chronique →',
+            lireChronique:       'Lire la chronique →',
+            retourChroniques:    '← Chroniques',
+            retourToutesChroniques: '← Retour aux chroniques',
         },
     },
 
@@ -273,6 +276,7 @@ const T = {
             nivInter:     'Intermediate',
             nivAvance:    'Advanced',
             nivTous:      'All levels',
+            tarif:        'Price',
         },
         expositions: {
             prochain:       'Next',
@@ -369,7 +373,9 @@ const T = {
             nlTitle:       'Follow the studio',
             nlDesc:        'Find new creations and upcoming exhibitions on our social media.',
             nlCta:         'Contact us',
-            lireChronique: 'Read the chronicle →',
+            lireChronique:          'Read the chronicle →',
+            retourChroniques:       '← Chronicles',
+            retourToutesChroniques: '← Back to chronicles',
         },
     },
 };

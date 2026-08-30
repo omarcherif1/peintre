@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -11,7 +11,6 @@ export default function Expositions({ foireAVenir = null, foiresPassees = [] }) 
             <main className="pt-24 pb-section-gap">
                 {foireAVenir ? <HeroFoire foire={foireAVenir} /> : <EmptyHero />}
                 <TimelineSection foires={foiresPassees} />
-                <NewsletterSection />
             </main>
         </PublicLayout>
     );
@@ -241,56 +240,3 @@ function FoireCard({ foire, locale }) {
     );
 }
 
-function NewsletterSection() {
-    const { t } = useLanguage();
-    const [email, setEmail]           = useState('');
-    const [subscribed, setSubscribed] = useState(false);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (email.trim()) setSubscribed(true);
-    };
-
-    return (
-        <section className="px-margin-mobile md:px-margin-desktop py-section-gap" style={{ backgroundImage: 'radial-gradient(circle, #7a353f 0%, #2b1116 100%)' }}>
-            <div className="max-w-container-max mx-auto">
-                <div className="max-w-xl mx-auto text-center">
-                    <p className="font-label-technical text-label-technical text-primary uppercase tracking-widest mb-4">
-                        {t('expositions','nlTag')}
-                    </p>
-                    <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">
-                        {t('expositions','nlTitle')}
-                    </h2>
-                    <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">
-                        {t('expositions','nlDesc')}
-                    </p>
-
-                    {subscribed ? (
-                        <div className="flex flex-col items-center gap-3">
-                            <span className="material-symbols-outlined text-primary text-5xl">check_circle</span>
-                            <p className="font-headline-md text-headline-md text-primary">{t('expositions','nlMerci')}</p>
-                            <p className="font-body-md text-sm text-on-surface-variant">{t('expositions','nlMerciDesc')}</p>
-                        </div>
-                    ) : (
-                        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder={t('expositions','nlPlaceholder')}
-                                required
-                                className="flex-1 bg-surface-container-low border border-outline-variant px-4 py-3 font-body-md text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
-                            />
-                            <button
-                                type="submit"
-                                className="px-6 py-3 bg-primary text-on-primary font-label-technical text-label-technical uppercase tracking-widest hover:bg-primary/90 transition-colors whitespace-nowrap"
-                            >
-                                {t('expositions','nlSubmit')}
-                            </button>
-                        </form>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
-}
