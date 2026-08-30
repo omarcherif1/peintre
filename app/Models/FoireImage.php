@@ -24,6 +24,6 @@ class FoireImage extends Model
 
     public function getUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->image_path);
+        return '/img/' . $this->image_path;
     }
 }
