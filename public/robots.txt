@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /login
+Disallow: /dashboard
+
+Sitemap: https://chokribenomrane.com/sitemap.xml
