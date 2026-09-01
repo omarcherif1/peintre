@@ -46,11 +46,6 @@ export default function Accueil({ tableaux = [] }) {
                     delay: 1.25,
                     ease: 'power2.out',
                 });
-                gsap.to('#scroll-indicator', {
-                    opacity: 0.4,
-                    duration: 0.7,
-                    delay: 1.8,
-                });
 
                 /* ── Reveal-up sur scroll ── */
                 gsap.utils.toArray('.reveal-up').forEach((el) => {
@@ -178,17 +173,6 @@ export default function Accueil({ tableaux = [] }) {
                         ))}
                     </div>
 
-                    {/* Indicateur de scroll */}
-                    <div
-                        id="scroll-indicator"
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-                        style={{ opacity: 0 }}
-                    >
-                        <div className="w-px h-10 bg-primary/40 animate-pulse" />
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M6 10L1 5h10L6 10z" fill="currentColor" className="text-primary/60" />
-                        </svg>
-                    </div>
 
                     <div className="absolute bottom-8 right-8 hidden md:flex flex-col gap-2">
                         <div
@@ -304,14 +288,7 @@ export default function Accueil({ tableaux = [] }) {
                     </div>
                 </div>
             </section>
-
-
-            {/* ════════════════════════════════════════
-                SECTION 3 · Chiffres clés
-            ════════════════════════════════════════ */}
-            
-
-
+         
             {/* ════════════════════════════════════════
                 SECTION · Ateliers en images
             ════════════════════════════════════════ */}

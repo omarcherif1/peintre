@@ -82,9 +82,9 @@ function HeroSection() {
                     {[
                         { label: 'Instagram', href: 'https://www.instagram.com/club_peinture_tunis?igsi=ZWtkcGZrMWM2bXNr',
                           svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> },
-                        { label: 'TikTok',    href: '#',
+                        { label: 'TikTok',    href: 'https://www.tiktok.com/@clubpeinturetunis?_r=1&_t=ZS-99L0LbBZbYC',
                           svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg> },
-                        { label: 'YouTube',   href: '#',
+                        { label: 'YouTube',   href: 'https://youtube.com/@clubdepeinturedetunis?si=nxRy3LMtdbGdVVYc',
                           svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/></svg> },
                         { label: 'Facebook',  href: 'https://www.facebook.com/share/19YKD89X5g/',
                           svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
