@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Head } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -20,6 +21,11 @@ export default function Presse({ articles = [], interviews = [] }) {
 
     return (
         <PublicLayout>
+            <Head>
+                <title>Presse — Articles et Interviews de Chokri Benomrane</title>
+                <meta name="description" content="Revue de presse, articles et interviews du peintre tunisien Chokri Benomrane, fondateur de la peinture de l'absurde. Médias et couverture presse." />
+                <meta name="keywords" content="presse Chokri Benomrane, interview peintre tunisien, médias art tunisien, articles peinture absurde" />
+            </Head>
             <main className="pt-24">
                 <HeroHeader />
                 <SousNav activeSection={activeSection} />

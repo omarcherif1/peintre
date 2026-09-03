@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Head } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -12,6 +13,11 @@ export default function Oeuvres({ peintures = [], dessins = [] }) {
 
     return (
         <PublicLayout>
+            <Head>
+                <title>Œuvres — Tableaux et Dessins de Chokri Benomrane</title>
+                <meta name="description" content="Galerie des peintures et dessins de Chokri Benomrane, peintre tunisien fondateur de la peinture de l'absurde. Explorez toutes ses œuvres." />
+                <meta name="keywords" content="tableaux Chokri Benomrane, peintures tunisiennes, galerie peinture Tunis, œuvres peintre absurde" />
+            </Head>
             <main className="pt-24 pb-section-gap">
                 <OeuvresHeader />
                 <PeinturesSection peintures={peintures} onOpen={(t) => setLightbox({ tableau: t, imageIndex: 0 })} />

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -8,6 +8,11 @@ const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
 export default function Expositions({ foireAVenir = null, foiresPassees = [] }) {
     return (
         <PublicLayout>
+            <Head>
+                <title>Expositions — Chokri Benomrane, Peintre Tunisien</title>
+                <meta name="description" content="Calendrier des expositions et foires d'art de Chokri Benomrane en Tunisie et à l'international. Découvrez les prochains événements du peintre de l'absurde." />
+                <meta name="keywords" content="exposition Chokri Benomrane, foire art Tunis, exposition peinture tunisienne, art tunisien" />
+            </Head>
             <main className="pt-24 pb-section-gap">
                 {foireAVenir ? <HeroFoire foire={foireAVenir} /> : <EmptyHero />}
                 <TimelineSection foires={foiresPassees} />

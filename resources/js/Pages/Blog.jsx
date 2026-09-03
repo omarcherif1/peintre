@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -21,6 +21,11 @@ export default function Blog({ articles = [] }) {
 
     return (
         <PublicLayout>
+            <Head>
+                <title>Blog — Chokri Benomrane, Peintre Tunisien</title>
+                <meta name="description" content="Articles et réflexions du peintre tunisien Chokri Benomrane sur l'art, la peinture de l'absurde et la création artistique." />
+                <meta name="keywords" content="blog Chokri Benomrane, articles art tunisien, peinture absurde blog, réflexions peintre tunisien" />
+            </Head>
             <main className="min-h-screen pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
                 <BlogHeader />
 

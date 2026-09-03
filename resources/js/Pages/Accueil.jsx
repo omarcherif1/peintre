@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -83,6 +83,11 @@ export default function Accueil({ tableaux = [] }) {
 
     return (
         <PublicLayout>
+            <Head>
+                <title>Chokri Benomrane — Peintre Tunisien, Fondateur de la Peinture de l'Absurde</title>
+                <meta name="description" content="Site officiel de Chokri Benomrane, peintre tunisien et fondateur de la peinture de l'absurde. Découvrez ses œuvres, expositions et ateliers de peinture à Tunis." />
+                <meta name="keywords" content="Chokri Benomrane, peintre tunisien, peinture absurde, artiste tunisien, peinture Tunis" />
+            </Head>
 
             {/* ════════════════════════════════════════
                 SECTION 1 · Héro

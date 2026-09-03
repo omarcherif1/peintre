@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -13,6 +13,11 @@ const NIVEAU_COLOR = {
 export default function Ateliers({ cours = [] }) {
     return (
         <PublicLayout>
+            <Head>
+                <title>Ateliers de Peinture à Tunis — Club de Peinture · Chokri Benomrane</title>
+                <meta name="description" content="Rejoignez les ateliers et le club de peinture de Chokri Benomrane à Tunis. Cours pour débutants, intermédiaires et avancés. Club de peinture tunisien fondé par le peintre de l'absurde." />
+                <meta name="keywords" content="atelier peinture tunis, club peinture tunis, cours peinture tunis, Chokri Benomrane atelier, club de peinture tunisien" />
+            </Head>
             <HeroSection />
             <PhilosophieSection />
             <CoursSection cours={cours} />

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Head } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -55,6 +56,11 @@ export default function Artiste({ images = [] }) {
 
     return (
         <PublicLayout>
+            <Head>
+                <title>Artiste — Chokri Benomrane, Peintre Tunisien de l'Absurde</title>
+                <meta name="description" content="Biographie et démarche artistique de Chokri Benomrane, peintre tunisien fondateur de la peinture de l'absurde. Découvrez son univers, sa philosophie et son parcours." />
+                <meta name="keywords" content="Chokri Benomrane biographie, peintre tunisien absurde, artiste peintre Tunis, peinture tunisienne" />
+            </Head>
 
             {/* ── Sticky Sub-Nav ── */}
             <div
