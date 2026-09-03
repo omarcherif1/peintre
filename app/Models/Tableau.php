@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Tableau extends Model
 {
@@ -28,6 +29,11 @@ class Tableau extends Model
         'disponible'    => 'boolean',
         'en_biographie' => 'boolean',
     ];
+
+    public function getSlugAttribute(): string
+    {
+        return Str::slug($this->nom);
+    }
 
     public function images(): HasMany
     {

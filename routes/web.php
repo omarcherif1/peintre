@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\PresseController as AdminPresseController;
 use App\Http\Controllers\Admin\TableauController as AdminTableauController;
@@ -10,6 +11,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+// Sitemap dynamique
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // Servir les fichiers storage via PHP (contournement symlink OVH)
 Route::get('/img/{path}', function (string $path) {
@@ -22,6 +26,7 @@ Route::get('/img/{path}', function (string $path) {
 Route::get('/', [PageController::class, 'accueil'])->name('accueil');
 Route::get('/artiste', [PageController::class, 'artiste'])->name('artiste');
 Route::get('/oeuvres', [PageController::class, 'oeuvres'])->name('oeuvres');
+Route::get('/oeuvres/{slug}', [PageController::class, 'tableauDetail'])->name('oeuvres.tableau');
 Route::get('/expositions', [PageController::class, 'expositions'])->name('expositions');
 Route::get('/presse', [PageController::class, 'presse'])->name('presse');
 Route::get('/ateliers', [PageController::class, 'ateliers'])->name('ateliers');

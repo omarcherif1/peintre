@@ -3,32 +3,56 @@ import { Head } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export default function Oeuvres({ peintures = [], dessins = [] }) {
+export default function Oeuvres({ peintures = [], dessins = [], selectedSlug = null }) {
     const [lightbox, setLightbox] = useState(null);
 
+    // Ouvre le lightbox au chargement si URL directe (/oeuvres/{slug})
+    useEffect(() => {
+        if (!selectedSlug) return;
+        const all = [...peintures, ...dessins];
+        const found = all.find((t) => t.slug === selectedSlug);
+        if (found) setLightbox({ tableau: found, imageIndex: 0 });
+    }, []);
+
+    // Gestion de l'overflow et de l'URL
     useEffect(() => {
         document.body.style.overflow = lightbox ? 'hidden' : '';
+        if (lightbox) {
+            window.history.replaceState(null, '', `/oeuvres/${lightbox.tableau.slug}`);
+        } else {
+            window.history.replaceState(null, '', '/oeuvres');
+        }
         return () => { document.body.style.overflow = ''; };
     }, [lightbox]);
+
+    const openLightbox = (t) => setLightbox({ tableau: t, imageIndex: 0 });
+    const closeLightbox = () => setLightbox(null);
+
+    const headTitle = lightbox
+        ? `${lightbox.tableau.nom} — Œuvres · Chokri Benomrane`
+        : 'Œuvres — Tableaux et Dessins de Chokri Benomrane';
+    const headDesc = lightbox
+        ? `${lightbox.tableau.nom}${lightbox.tableau.technique ? `, ${lightbox.tableau.technique}` : ''}${lightbox.tableau.annee ? `, ${lightbox.tableau.annee}` : ''} — Tableau de Chokri Benomrane, peintre tunisien.`
+        : 'Galerie des peintures et dessins de Chokri Benomrane, peintre tunisien fondateur de la peinture de l\'absurde. Explorez toutes ses œuvres.';
 
     return (
         <PublicLayout>
             <Head>
-                <title>Œuvres — Tableaux et Dessins de Chokri Benomrane</title>
-                <meta name="description" content="Galerie des peintures et dessins de Chokri Benomrane, peintre tunisien fondateur de la peinture de l'absurde. Explorez toutes ses œuvres." />
+                <title>{headTitle}</title>
+                <meta name="description" content={headDesc} />
                 <meta name="keywords" content="tableaux Chokri Benomrane, peintures tunisiennes, galerie peinture Tunis, œuvres peintre absurde" />
             </Head>
             <main className="pt-24 pb-section-gap">
                 <OeuvresHeader />
-                <PeinturesSection peintures={peintures} onOpen={(t) => setLightbox({ tableau: t, imageIndex: 0 })} />
-                <DessinsSection dessins={dessins} onOpen={(t) => setLightbox({ tableau: t, imageIndex: 0 })} />
+                <PeinturesSection peintures={peintures} onOpen={openLightbox} />
+                <DessinsSection dessins={dessins} onOpen={openLightbox} />
             </main>
 
             {lightbox && (
                 <Lightbox
                     tableau={lightbox.tableau}
                     imageIndex={lightbox.imageIndex}
-                    onClose={() => setLightbox(null)}
+                    onClose={closeLightbox}
                     onChangeImage={(i) => setLightbox((prev) => ({ ...prev, imageIndex: i }))}
                 />
             )}

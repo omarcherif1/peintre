@@ -59,6 +59,7 @@ class PageController extends Controller
     {
         $mapTableau = fn ($t) => [
             'id'            => $t->id,
+            'slug'          => $t->slug,
             'nom'           => $t->nom,
             'technique'     => $t->technique,
             'mesure_h'      => $t->mesure_hauteur,
@@ -86,6 +87,49 @@ class PageController extends Controller
         return Inertia::render('Oeuvres', [
             'peintures' => $query('peinture'),
             'dessins'   => $query('dessin'),
+        ]);
+    }
+
+    public function tableauDetail(string $slug): Response
+    {
+        $mapTableau = fn ($t) => [
+            'id'            => $t->id,
+            'slug'          => $t->slug,
+            'nom'           => $t->nom,
+            'technique'     => $t->technique,
+            'mesure_h'      => $t->mesure_hauteur,
+            'mesure_l'      => $t->mesure_largeur,
+            'disponible'    => $t->disponible,
+            'annee'         => $t->created_at->format('Y'),
+            'description'   => $t->description,
+            'idee'          => $t->idee,
+            'image_url'     => $t->images->first()?->url,
+            'toutes_images' => $t->images->map(fn ($img) => [
+                'id'  => $img->id,
+                'url' => $img->url,
+            ]),
+        ];
+
+        $query = fn (string $categorie) => Tableau::with([
+            'images' => fn ($q) => $q->orderBy('ordre'),
+        ])
+            ->where('categorie', $categorie)
+            ->orderBy('ordre')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map($mapTableau);
+
+        $peintures = $query('peinture');
+        $dessins   = $query('dessin');
+        $all       = $peintures->merge($dessins);
+        $selected  = $all->firstWhere('slug', $slug);
+
+        abort_if(!$selected, 404);
+
+        return Inertia::render('Oeuvres', [
+            'peintures'    => $peintures,
+            'dessins'      => $dessins,
+            'selectedSlug' => $slug,
         ]);
     }
 
