@@ -28,18 +28,27 @@ class SitemapController extends Controller
             'loc'        => $base.'/oeuvres/'.$t->slug,
             'changefreq' => 'monthly',
             'priority'   => '0.7',
-        ]);
+        ])->toArray();
 
-        $articles = Article::publies()->orderByDesc('created_at')->get()->map(fn ($a) => [
+        $articles = Article::where('publie', true)->orderByDesc('created_at')->get()->map(fn ($a) => [
             'loc'        => $base.'/blog/'.$a->id,
             'changefreq' => 'monthly',
             'priority'   => '0.6',
-        ]);
+        ])->toArray();
 
-        $xml = view('sitemap', [
-            'pages'    => array_merge($staticPages, $tableaux->toArray(), $articles->toArray()),
-            'lastmod'  => $now,
-        ])->render();
+        $pages = array_merge($staticPages, $tableaux, $articles);
+
+        $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        foreach ($pages as $page) {
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$page['loc']}</loc>\n";
+            $xml .= "    <lastmod>{$now}</lastmod>\n";
+            $xml .= "    <changefreq>{$page['changefreq']}</changefreq>\n";
+            $xml .= "    <priority>{$page['priority']}</priority>\n";
+            $xml .= "  </url>\n";
+        }
+        $xml .= '</urlset>';
 
         return response($xml, 200, ['Content-Type' => 'application/xml']);
     }
