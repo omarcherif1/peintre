@@ -32,7 +32,11 @@ class PageController extends Controller
                 'image_url' => $t->images->first()?->url,
             ]);
 
-        return Inertia::render('Accueil', compact('tableaux'));
+        return Inertia::render('Accueil', compact('tableaux'))
+            ->withViewData([
+                'title'       => "Chokri Benomrane — Peintre Tunisien, Fondateur de la Peinture de l'Absurde",
+                'description' => "Site officiel de Chokri Benomrane, peintre tunisien et fondateur de la peinture de l'absurde. Découvrez ses œuvres, expositions et ateliers de peinture à Tunis.",
+            ]);
     }
 
     public function artiste(): Response
@@ -52,7 +56,11 @@ class PageController extends Controller
             ->filter(fn ($t) => $t['image_url'] !== null)
             ->values();
 
-        return Inertia::render('Artiste', compact('images'));
+        return Inertia::render('Artiste', compact('images'))
+            ->withViewData([
+                'title'       => "Artiste — Biographie de Chokri Benomrane, Peintre Tunisien",
+                'description' => "Biographie et démarche artistique de Chokri Benomrane, peintre tunisien fondateur de la peinture de l'absurde. Découvrez son univers, sa philosophie et son parcours.",
+            ]);
     }
 
     public function oeuvres(): Response
@@ -87,6 +95,9 @@ class PageController extends Controller
         return Inertia::render('Oeuvres', [
             'peintures' => $query('peinture'),
             'dessins'   => $query('dessin'),
+        ])->withViewData([
+            'title'       => "Œuvres — Tableaux et Dessins de Chokri Benomrane",
+            'description' => "Galerie des peintures et dessins de Chokri Benomrane, peintre tunisien fondateur de la peinture de l'absurde. Explorez toutes ses œuvres.",
         ]);
     }
 
@@ -154,7 +165,11 @@ class PageController extends Controller
             ->get()
             ->map($mapFoire);
 
-        return Inertia::render('Expositions', compact('foireAVenir', 'foiresPassees'));
+        return Inertia::render('Expositions', compact('foireAVenir', 'foiresPassees'))
+            ->withViewData([
+                'title'       => "Expositions — Chokri Benomrane, Peintre Tunisien",
+                'description' => "Calendrier des expositions et foires d'art de Chokri Benomrane en Tunisie et à l'international.",
+            ]);
     }
 
     public function presse(): Response
@@ -187,7 +202,11 @@ class PageController extends Controller
                 'image_url'        => $i->image_url,
             ]);
 
-        return Inertia::render('Presse', compact('articles', 'interviews'));
+        return Inertia::render('Presse', compact('articles', 'interviews'))
+            ->withViewData([
+                'title'       => "Presse — Articles et Interviews de Chokri Benomrane",
+                'description' => "Revue de presse, articles et interviews du peintre tunisien Chokri Benomrane.",
+            ]);
     }
 
     public function ateliers(): Response
@@ -210,7 +229,11 @@ class PageController extends Controller
                 'description'      => $c->description,
             ]);
 
-        return Inertia::render('Ateliers', compact('cours'));
+        return Inertia::render('Ateliers', compact('cours'))
+            ->withViewData([
+                'title'       => "Ateliers de Peinture à Tunis — Club de Peinture · Chokri Benomrane",
+                'description' => "Rejoignez les ateliers et le club de peinture de Chokri Benomrane à Tunis. Cours pour débutants, intermédiaires et avancés.",
+            ]);
     }
 
     public function contact(): Response
@@ -231,7 +254,11 @@ class PageController extends Controller
                 'date'      => Carbon::parse($a->created_at)->locale('fr')->isoFormat('D MMMM YYYY'),
             ]);
 
-        return Inertia::render('Blog', compact('articles'));
+        return Inertia::render('Blog', compact('articles'))
+            ->withViewData([
+                'title'       => "Blog — Chokri Benomrane, Peintre Tunisien",
+                'description' => "Articles et réflexions du peintre tunisien Chokri Benomrane sur l'art et la peinture de l'absurde.",
+            ]);
     }
 
     public function article(Article $article): Response
@@ -246,6 +273,9 @@ class PageController extends Controller
                 'image_url' => $article->image_url,
                 'date'      => Carbon::parse($article->created_at)->locale('fr')->isoFormat('dddd D MMMM YYYY'),
             ],
+        ])->withViewData([
+            'title'       => $article->titre . ' — Blog · Chokri Benomrane',
+            'description' => mb_substr(strip_tags($article->contenu), 0, 160),
         ]);
     }
 }

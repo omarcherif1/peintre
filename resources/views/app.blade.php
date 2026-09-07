@@ -5,7 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="google-site-verification" content="7uun-FKks2UC-6SqJVleX0CyUFF7Jc3xv-zz3CYha1k" />
 
-        <title inertia>{{ config('app.name', 'Chokri Benomrane') }}</title>
+        <title inertia>{{ $title ?? config('app.name', 'Chokri Benomrane') }}</title>
+        @if(!empty($description))
+        <meta name="description" content="{{ $description }}">
+        @endif
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/assets/logo.png">
