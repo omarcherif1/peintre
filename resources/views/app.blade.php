@@ -9,6 +9,15 @@
         @if(!empty($description))
         <meta name="description" content="{{ $description }}">
         @endif
+        <meta property="og:title" content="{{ $title ?? config('app.name', 'Chokri Benomrane') }}">
+        <meta property="og:description" content="{{ $description ?? 'Peintre tunisien, fondateur de la peinture de l\'absurde.' }}">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Chokri Benomrane">
+        @if(!empty($og_image))
+        <meta property="og:image" content="{{ $og_image }}">
+        <meta name="twitter:image" content="{{ $og_image }}">
+        <meta name="twitter:card" content="summary_large_image">
+        @endif
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/assets/logo.png">

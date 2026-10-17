@@ -137,10 +137,16 @@ class PageController extends Controller
 
         abort_if(!$selected, 404);
 
+        $base = config('app.url');
+
         return Inertia::render('Oeuvres', [
             'peintures'    => $peintures,
             'dessins'      => $dessins,
             'selectedSlug' => $slug,
+        ])->withViewData([
+            'title'       => $selected['nom'].' — Œuvre de Chokri Benomrane, Peintre Tunisien',
+            'description' => $selected['nom'].($selected['technique'] ? ', '.$selected['technique'] : '').($selected['annee'] ? ', '.$selected['annee'] : '').' — Tableau de Chokri Benomrane, peintre tunisien fondateur de la peinture de l\'absurde.',
+            'og_image'    => $selected['image_url'] ? $base.$selected['image_url'] : null,
         ]);
     }
 
