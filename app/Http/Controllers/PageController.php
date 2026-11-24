@@ -271,6 +271,8 @@ class PageController extends Controller
     {
         abort_unless($article->publie, 404);
 
+        $base = config('app.url');
+
         return Inertia::render('ArticleDetail', [
             'article' => [
                 'id'        => $article->id,
@@ -282,6 +284,7 @@ class PageController extends Controller
         ])->withViewData([
             'title'       => $article->titre . ' — Blog · Chokri Benomrane',
             'description' => mb_substr(strip_tags($article->contenu), 0, 160),
+            'og_image'    => $article->image_url ? $base . $article->image_url : null,
         ]);
     }
 }

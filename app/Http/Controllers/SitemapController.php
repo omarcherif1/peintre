@@ -36,9 +36,11 @@ class SitemapController extends Controller
             ])->toArray();
 
         $articles = Article::where('publie', true)->orderByDesc('created_at')->get()->map(fn ($a) => [
-            'loc'        => $base.'/blog/'.$a->id,
-            'changefreq' => 'monthly',
-            'priority'   => '0.6',
+            'loc'         => $base.'/blog/'.$a->id,
+            'changefreq'  => 'monthly',
+            'priority'    => '0.6',
+            'image_loc'   => $a->image_url ? $base.$a->image_url : null,
+            'image_title' => $a->image_url ? htmlspecialchars($a->titre) : null,
         ])->toArray();
 
         $pages = array_merge($staticPages, $tableaux, $articles);

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/Components/Layout/PublicLayout';
 import { useLanguage } from '@/contexts/LanguageContext';
